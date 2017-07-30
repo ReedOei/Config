@@ -13,7 +13,6 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'bling/vim-airline'
 Plugin 'ervandew/supertab'
-Plugin 'jiangmiao/auto-pairs'
 Plugin 'Shougo/neocomplete.vim'
 
 " All of your Plugins must be added before the following line
