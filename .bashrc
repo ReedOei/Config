@@ -148,6 +148,7 @@ alias dotar='sh ~/tar_prog.sh'
 alias refresh_wifi='sudo systemctl restart network-manager'
 alias go="source ~/go.sh"
 alias speedcompare="~/Dropbox/Programming/Haskell/SpeedCompare/dist/build/SpeedCompare/SpeedCompare"
+alias whois='~/scripts/whois.sh'
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
