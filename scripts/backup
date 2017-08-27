@@ -1,5 +1,0 @@
-#!/bin/sh
-
-mysqldump Main -p --events --routines --triggers > "$(date).sql"
-dotar cvf "$(date).sql"
-

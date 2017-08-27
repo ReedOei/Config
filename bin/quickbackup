@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /home/django/backup/db
+
+backup
