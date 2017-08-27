@@ -1,5 +1,7 @@
 #!/bin/sh
 
-mysqldump "$@" -p --events --routines --triggers > "$(date).sql"
-dotar cvf "$(date).sql"
+now=`date +%Y-%m-%d:%H:%M:%S`
+
+mysqldump "$@" -p --events --routines --triggers > "$now.sql"
+dotar "$now.sql"
 
