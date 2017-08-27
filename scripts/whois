@@ -1,0 +1,2 @@
+#!/bin/sh
+echo $(curl -s "ipinfo.io/$1")

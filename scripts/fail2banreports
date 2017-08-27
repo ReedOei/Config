@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "Ban counts:"
+zgrep -h "Ban " /var/log/fail2ban.log* | awk '{print $NF}' | sort | uniq -c
+
+echo "Status:"
+fail2ban-client status
+
+echo "Statuses of filters:"
+
+fail2ban-client status sshd
+fail2ban-client status nginx-http-auth
+fail2ban-client status nginx-noscript
+fail2ban-client status nginx-badbots
+

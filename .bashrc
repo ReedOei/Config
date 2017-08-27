@@ -131,6 +131,7 @@ export DISPLAY=:0
 
 alias fallouthack="~/Dropbox/Programming/Haskell/FalloutHacker"
 alias file_size_kb="du -k \"$filename\" | cut -f1"
+alias dump_routines="mysqldump -p --no-create-db --no-create-info --no-data --routines"
 alias cabal_install='cabal configure && cabal build && cabal install -j'
 alias cookie_clicker='python ~/Dropbox/Programming/Sage/lib/cookie_clicker_bot.py'
 alias math='sh math.sh'
