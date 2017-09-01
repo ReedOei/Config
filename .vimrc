@@ -35,6 +35,9 @@ map <C-t><right> :tabn<cr>
 
 map <Leader> <Plug>(easymotion-prefix)
 
+" Strips all the trailing whitespace on save.
+autocmd BufWritePre * %s/\s\+$//e
+
 augroup Binary
     au!
     au BufReadPre  *.ser let &bin=1
