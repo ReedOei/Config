@@ -14,29 +14,53 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'bling/vim-airline'
 Plugin 'ervandew/supertab'
 Plugin 'Shougo/neocomplete.vim'
+Plugin 'JuliaEditorSupport/julia-vim'
+Plugin 'idris-hackers/idris-vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'eagletmt/ghcmod-vim'
+Plugin 'eagletmt/neco-ghc'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'udalov/kotlin-vim'
+Plugin 'junegunn/vim-easy-align'
+Plugin 'tpope/vim-commentary'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+autocmd FileType idris setlocal commentstring=--\ %s
+
 :set autoindent
+:set hlsearch
 
 :set completeopt=longest,menuone
 let g:neocomplete#enable_at_startup = 1
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_haskell_checkers = ['hlint']
+let g:syntastic_idris_checkers = ['idris']
 
 syntax on
 set number
 set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
-map <C-t><up> :tabr<cr>
-map <C-t><down> :tabl<cr>
-map <C-t><left> :tabp<cr>
-map <C-t><right> :tabn<cr>
+xmap ga <Plug>(EasyAlign)
 
 map <Leader> <Plug>(easymotion-prefix)
 
 " Strips all the trailing whitespace on save.
 autocmd BufWritePre * %s/\s\+$//e
+
+" Run GhcModCheck on write
+" autocmd BufWritePost *.hs GhcModCheck
 
 augroup Binary
     au!
