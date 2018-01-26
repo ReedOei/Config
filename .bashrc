@@ -118,8 +118,14 @@ fi
 
 export PATH=$PATH:~/julia/bin/
 export PATH=$PATH:/usr/local/texlive/2017/bin/x86_64-linux
-export PATH=$PATH:~/.cabal/bin/
-export PATH=$PATH:~/scripts/
+export PATH=$PATH:$HOME/.cabal/bin/
+export PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:~/Config/bin/
+export PATH=$PATH:~/SageMath/
+export PATH=$PATH:$HOME/Android/Sdk/tools/bin/
+export PATH="$HOME/.cargo/bin:$PATH"
+
+export ANDROID_HOME=$HOME/Android/Sdk/
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -134,7 +140,6 @@ alias file_size_kb="du -k \"$filename\" | cut -f1"
 alias dump_routines="mysqldump -p --no-create-db --no-create-info --no-data --routines"
 alias cabal_install='cabal configure && cabal build && cabal install -j'
 alias cookie_clicker='python ~/Dropbox/Programming/Sage/lib/cookie_clicker_bot.py'
-alias math='sh math.sh'
 alias sage_lib='cd ~/Dropbox/Programming/Sage/lib/'
 alias ghc_prof='ghc -prof -fprof-auto -rtsopts'
 alias ghc_prun='sh ~/ghc_prof.sh'
@@ -146,9 +151,10 @@ alias yt='youtube-dl --merge-output-format mp4 --format mp4'
 alias ghc_run='sh ~/ghc_run.sh'
 alias average_time='sh ~/average_time.sh'
 alias refresh_wifi='sudo systemctl restart network-manager'
-alias go="source ~/go.sh"
 alias speedcompare="~/Dropbox/Programming/Haskell/SpeedCompare/dist/build/SpeedCompare/SpeedCompare"
 alias intellij="~/idea-IU-172.3968.16/bin/idea.sh"
+alias pycharm="sh ~/pycharm-community-2017.3.3/bin/pycharm.sh"
+alias android_studio="~/Downloads/android-studio/bin/studio.sh"
 
 export VISUAL=vim
 export EDITOR="$VISUAL"

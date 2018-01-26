@@ -23,6 +23,8 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'udalov/kotlin-vim'
 Plugin 'junegunn/vim-easy-align'
 Plugin 'tpope/vim-commentary'
+Plugin 'rust-lang/rust.vim'
+Plugin 'airblade/vim-gitgutter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -42,15 +44,21 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_haskell_checkers = ['hlint']
 let g:syntastic_idris_checkers = ['idris']
+let g:syntastic_rust_checkers = ['cargo']
+let g:syntastic_java_checkers = []
+
+let g:syntastic_cpp_compiler = 'clang++'
+let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
+
+let g:syntastic_disabled_filetypes = ['java']
 
 syntax on
 set number
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 xmap ga <Plug>(EasyAlign)
 
@@ -60,7 +68,14 @@ map <Leader> <Plug>(easymotion-prefix)
 autocmd BufWritePre * %s/\s\+$//e
 
 " Run GhcModCheck on write
-" autocmd BufWritePost *.hs GhcModCheck
+autocmd BufWritePost *.hs GhcModCheck
+
+set expandtab smarttab tabstop=4 shiftwidth=4
+if has("autocmd")
+    " If the filetype is Makefile then we need to use tabs
+    " So do not expand tabs into space.
+    autocmd FileType make setlocal noexpandtab
+endif
 
 augroup Binary
     au!
