@@ -116,6 +116,11 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# arrow up
+bind '"\e[A":history-search-backward'
+# arrow down
+bind '"\e[B":history-search-forward'
+
 export PATH=$PATH:~/julia/bin/
 export PATH=$PATH:/usr/local/texlive/2017/bin/x86_64-linux
 export PATH=$PATH:$HOME/.cabal/bin/
@@ -126,6 +131,8 @@ export PATH=$PATH:$HOME/Android/Sdk/tools/bin/
 export PATH="$HOME/.cargo/bin:$PATH"
 
 export ANDROID_HOME=$HOME/Android/Sdk/
+
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8

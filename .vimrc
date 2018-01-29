@@ -68,7 +68,7 @@ map <Leader> <Plug>(easymotion-prefix)
 autocmd BufWritePre * %s/\s\+$//e
 
 " Run GhcModCheck on write
-autocmd BufWritePost *.hs GhcModCheck
+" autocmd BufWritePost *.hs GhcModCheck
 
 set expandtab smarttab tabstop=4 shiftwidth=4
 if has("autocmd")
