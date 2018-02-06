@@ -7,8 +7,15 @@ import subprocess
 com = shlex.split(sys.argv[1])
 for line in sys.stdin:
     args = shlex.split(line)
-    with open('test.txt', 'a') as f:
-        f.write(str(com + args))
-    res = subprocess.check_output(com + args)
-    print(res)
+    p = subprocess.Popen(com + args, stdout=subprocess.PIPE)
+
+    try:
+        while p.poll() is None:
+            l = p.stdout.readline()
+            print(l)
+
+        print(p.stdout.read())
+        p.kill()
+    except KeyboardInterrupt:
+        p.kill()
 

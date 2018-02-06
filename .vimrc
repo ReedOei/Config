@@ -25,6 +25,7 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'tpope/vim-commentary'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'vim-scripts/vim-svngutter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -89,4 +90,15 @@ augroup Binary
 augroup END
 
 set tabpagemax=100
+
+function! MakeHeader()
+    let name = input('Class name: ')
+    normal ggO
+    call setline('.', ["#ifndef " . toupper(name) . "_H", "#define " . toupper(name) . "_H", "", "class " . name . " {", "", "};", ""])
+
+    normal Go
+    call setline('.', "#endif // " . toupper(name) . "_H")
+endfunction
+
+autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
 
