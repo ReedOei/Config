@@ -97,8 +97,14 @@ function! MakeHeader()
     call setline('.', ["#ifndef " . toupper(name) . "_H", "#define " . toupper(name) . "_H", "", "class " . name . " {", "", "};", ""])
 
     normal Go
-    call setline('.', "#endif // " . toupper(name) . "_H")
+    call setline('.', ["#endif // " . toupper(name) . "_H", ""])
+endfunction
+
+function! WriteClassImpl()
+    :silent !bash ~/Config/bin/write_class_impl %
+    :redraw!
 endfunction
 
 autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
+autocmd FileType cpp nnoremap <F3> :call WriteClassImpl()<CR>
 

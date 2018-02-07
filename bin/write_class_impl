@@ -1,0 +1,34 @@
+#!/bin/bash
+
+FILENAME=$1
+
+CLASSNAME=$(grep -oE 'class .* {' $FILENAME | sed -E 's/class (.*) \{/\1/')
+
+IFS='
+'
+
+FUNCTIONS=(`grep -oE "(.*?) (.*?)\(.*\)" "$FILENAME" | sed -E "s/(.*?) (.*?)\((.*?)\)/\1 $CLASSNAME::\2(\3)/"`)
+
+if [[ -e "$CLASSNAME.cpp" ]]; then
+    echo "File $CLASSNAME.cpp already exists. Delete (Y/N)?"
+
+    read input
+
+    if [[ "$input" -eq "Y" ]]; then
+        rm "$CLASSNAME.cpp"
+    else
+        exit
+    fi
+fi
+
+echo "#include \"$FILENAME\"" | tee -a "$CLASSNAME.cpp"
+echo "" | tee -a "$CLASSNAME.cpp"
+
+for i in ${FUNCTIONS[@]}
+do
+    func_def=$(echo "$i" | xargs)
+    echo "$func_def {" | tee -a "$CLASSNAME.cpp"
+    echo "" | tee -a "$CLASSNAME.cpp"
+    echo "}" | tee -a "$CLASSNAME.cpp"
+    echo "" | tee -a "$CLASSNAME.cpp"
+done
