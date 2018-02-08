@@ -103,8 +103,13 @@ endfunction
 function! WriteClassImpl()
     :silent !bash ~/Config/bin/write_class_impl %
     :redraw!
+
+    echom "Wrote class implementation."
 endfunction
 
 autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
 autocmd FileType cpp nnoremap <F3> :call WriteClassImpl()<CR>
+
+set autoread
+au FocusGained,BufEnter * :checktime " Check for autoread.
 

@@ -14,7 +14,7 @@ if [[ -e "$CLASSNAME.cpp" ]]; then
 
     read input
 
-    if [[ "$input" -eq "Y" ]]; then
+    if [[ "$input" == "Y" ]]; then
         rm "$CLASSNAME.cpp"
     else
         exit
