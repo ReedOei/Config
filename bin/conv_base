@@ -1,0 +1,23 @@
+#!/bin/bash
+
+ibase=10
+obase=10
+num=0
+
+if [ "$#" -eq 3 ]; then
+    ibase=$1
+    obase=$2
+    num=$3
+elif [ "$#" -eq 2 ]; then
+    obase=$1
+    num=$2
+else
+    echo "Expected at least two arguments."
+    echo "./conv_base ibase obase num"
+    echo "./conv_base obase num"
+
+    exit
+fi
+
+echo "ibase=$ibase;obase=$obase;$num" | bc -l
+
