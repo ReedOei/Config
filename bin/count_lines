@@ -1,0 +1,29 @@
+#!/usr/bin/python -u
+
+import sys
+import re
+
+pattern = sys.argv[1]
+
+if len(sys.argv) > 2:
+    message = sys.argv[2]
+else:
+    message = "{0}"
+
+count = 0
+
+for line in sys.stdin:
+    if len(re.findall(pattern, line)) > 0:
+        count += 1
+
+        sys.stdout.write("\r{}".format(message.format(count)))
+        sys.stdout.flush()
+    else: # reset counter and go to new line.
+        if count > 0:
+            sys.stdout.write('\n')
+            sys.stdout.flush()
+
+        sys.stdout.write(line)
+        sys.stdout.flush()
+        count = 0
+

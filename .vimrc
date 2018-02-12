@@ -26,6 +26,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/vim-svngutter'
+Plugin 'cloudhead/neovim-ghcid'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -110,6 +111,6 @@ endfunction
 autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
 autocmd FileType cpp nnoremap <F3> :call WriteClassImpl()<CR>
 
-set autoread
-au FocusGained,BufEnter * :checktime " Check for autoread.
+" set autoread
+" au FocusGained,BufEnter * :checktime " Check for autoread.
 
