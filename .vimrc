@@ -27,6 +27,7 @@ Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/vim-svngutter'
 Plugin 'cloudhead/neovim-ghcid'
+Plugin 'neovimhaskell/haskell-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -108,8 +109,34 @@ function! WriteClassImpl()
     echom "Wrote class implementation."
 endfunction
 
+function! MakeTurtleScript()
+    normal ggO
+    call append('.', ["#!/usr/bin/env stack", "{- stack", "   script", "   --resolver lts-10.5", "   --package turtle", "-}", ""])
+    normal dd
+endfunction
+
+function! CheckHaskellScript()
+    let line = getline(1)
+
+    if matchend(line, "stack") != -1
+        set filetype=haskell
+    endif
+endfunction
+
+autocmd BufReadPost * :call CheckHaskellScript()
+
+autocmd FileType haskell nnoremap <F2> :call MakeTurtleScript()<CR>
+
 autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
 autocmd FileType cpp nnoremap <F3> :call WriteClassImpl()<CR>
+
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
 " set autoread
 " au FocusGained,BufEnter * :checktime " Check for autoread.
