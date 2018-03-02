@@ -7,7 +7,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'joom/latex-unicoder.vim'
-Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'bling/vim-airline'
 Plugin 'ervandew/supertab'
@@ -24,12 +23,13 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/vim-svngutter'
 Plugin 'vim-scripts/Conque-GDB'
 Plugin 'vim-scripts/mercury.vim'
-Plugin 'Nopik/vim-nerdtree-direnter'
-Plugin 'jistr/vim-nerdtree-tabs'
+Plugin 'adimit/prolog.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+autocmd BufRead,BufNewFile *.pl set filetype=prolog
 
 autocmd FileType idris setlocal commentstring=--\ %s
 
@@ -105,7 +105,7 @@ endfunction
 function! CheckHaskellScript()
     let line = getline(1)
 
-    if matchend(line, "stack") != -1
+    if matchend(line, "stack$") != -1
         set filetype=haskell
     endif
 endfunction
@@ -124,9 +124,6 @@ let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
 let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
-
-let g:nerdtree_tabs_open_on_console_startup=1
-let NERDTreeMapOpenInTab='<ENTER>'
 
 " set autoread
 " au FocusGained,BufEnter * :checktime " Check for autoread.

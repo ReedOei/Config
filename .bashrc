@@ -160,4 +160,6 @@ alias android_studio="~/Downloads/android-studio/bin/studio.sh"
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
+
 

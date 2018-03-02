@@ -7,15 +7,18 @@ import subprocess
 com = shlex.split(sys.argv[1])
 for line in sys.stdin:
     args = shlex.split(line)
+
+    # print(com + args)
     p = subprocess.Popen(com + args, stdout=subprocess.PIPE)
 
     try:
         while p.poll() is None:
             l = p.stdout.readline()
-            print(l)
+            sys.stdout.write(l)
+            sys.stdout.flush()
 
-        print(p.stdout.read())
-        p.kill()
+        sys.stdout.write(p.stdout.read())
+        sys.stdout.flush()
     except KeyboardInterrupt:
         p.kill()
 
