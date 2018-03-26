@@ -1,0 +1,27 @@
+#!/bin/bash
+
+nmcli device wifi list
+
+echo "Wifi name:"
+read name
+
+echo "Username: "
+read username
+
+echo "Password: "
+read password
+
+if [[ -z "$username" ]]; then
+    if [[ -z "$password" ]]; then
+        nmcli device wifi connect $name
+    else
+        nmcli device wifi connect $name password $password
+    fi
+else
+    if [[ -z "$password" ]]; then
+        nmcli device wifi connect $name name $username
+    else
+        nmcli device wifi connect $name name $username password $password
+    fi
+fi
+

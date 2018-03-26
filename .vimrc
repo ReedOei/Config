@@ -20,7 +20,6 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'tpope/vim-commentary'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-scripts/vim-svngutter'
 Plugin 'vim-scripts/Conque-GDB'
 Plugin 'vim-scripts/mercury.vim'
 Plugin 'adimit/prolog.vim'
@@ -78,7 +77,7 @@ if has("autocmd")
     autocmd FileType make setlocal noexpandtab
 endif
 
-set tabpagemax=100
+set tabpagemax=1000
 
 function! MakeHeader()
     let name = input('Class name: ')
@@ -110,12 +109,33 @@ function! CheckHaskellScript()
     endif
 endfunction
 
+function! WriteEnvInput()
+    let name = input('Environment name: ')
+    call WriteEnv(name)
+endfunction
+
+function! WriteEnv(name)
+    call append('.', ["\\begin{" . a:name . "}", "", "\\end{" . a:name . "}", "\\begin{proof}", "", "\\end{proof}"])
+    normal 2j
+    startinsert
+endfunction
+
+function! WriteItemize()
+    call append('.', ["\\begin{itemize}", "    \\item[]", "\\end{itemize}"])
+    normal jj$
+    startinsert
+endfunction
+
 autocmd BufReadPost * :call CheckHaskellScript()
 
 autocmd FileType haskell nnoremap <F2> :call MakeTurtleScript()<CR>
 
 autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
 autocmd FileType cpp nnoremap <F3> :call WriteClassImpl()<CR>
+
+autocmd FileType tex nnoremap <F2> :call WriteEnv("proposition")<CR>
+autocmd FileType tex nnoremap <F3> :call WriteEnvInput()<CR>
+autocmd FileType tex nnoremap <F4> :call WriteItemize()<CR>
 
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+FILETYPE="hs"
+
+if [[ ! -z "$1" ]]; then
+    FILETYPE="$1"
+fi
+
+if [[ "$FILETYPE" == "hs" ]]; then
+    vim -p `find -type f -name "*.$FILETYPE" -not -path "*/.stack-work/*"`
+else
+    vim -p `find -type f -name "*.$FILETYPE"`
+fi
+
