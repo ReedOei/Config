@@ -43,6 +43,8 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:necoghc_enable_detailed_browse = 1
+let g:necoghc_use_stack = 1
+let g:necoghc_debug = 1
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1

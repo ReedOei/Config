@@ -21,6 +21,16 @@ description:         Please see the README on Github at <https://github.com/Reed
 
 dependencies:
 - base >= 4.7 && < 5
+- containers
+- MissingH
+- lens
+- arithmoi
+- split
+- optparse-applicative
+- terminal-progress-bar
+- mtl
+- random
+- array
 
 library:
   source-dirs: src
