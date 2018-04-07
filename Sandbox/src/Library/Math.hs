@@ -1,21 +1,8 @@
 {-# LANGUAGE GADTs #-}
 
-module Library.Math (factorial, choose, permute,
-             sieve, factor, d,
-             toDigits, fromDigits,
-             fromBaseX, toBaseX,
-             knuthArrow,
-             distance,
-             linSpace,
-             approxSlope, approxCurveArea,
-             cfFromList, period, cycleCF, e, evalCF, makeSquareRootCF,
-             crossProduct2D, dotProduct,
-             sameSide, pointIsInTriangle,
-             approximateSquareRoot, intSqrt, isSquare,
-             pascalsTriangle,
-             heunMethod, eulerMethod) where
+module Library.Math where
 
-import Library.General (takeUntil, pairOverlap)
+import Library.General (takeUntil, pairOverlap, mapPair)
 import Library.List (remove, setAt, separateList, groupFromStart)
 
 import Control.Monad.ST
@@ -42,7 +29,6 @@ heunMethod y' y0 t0 h = scanl next y0 [t0,t0 + h..]
 eulerMethod y' y0 t0 h = scanl next y0 [t0, t0 + h..]
     where next yn t = yn + h * y' t yn
 
-
 pascalsTriangle :: Integral a => [[a]]
 pascalsTriangle = pascalsTriangle' [1]
     where pascalsTriangle' ns = ns : pascalsTriangle' nextNs
@@ -62,9 +48,6 @@ approxCurveArea f (start, end) rects = w * sum ys
   where xs = linSpace rects (start, end)
         ys = map f xs
         w = (xs !! 1) - head xs
-
-distance :: Floating a => (a, a) -> (a, a) -> a
-distance (x1, y1) (x2, y2) = sqrt ((y1 - y2)**2 + (x1 - x2)**2)
 
 linSpace :: (Enum a, Floating a) => a -> (a, a) -> [a]
 linSpace num (start, end) = [start,start+increment..end]
@@ -137,9 +120,6 @@ sieve limit = 2 : 3 : 5 : 7 : sieve' (Map.fromList $ zip (takeWhile (<= limit) p
 isSquare n
     | (n `mod` 10) `elem` [2,3,7,8] = False
     | otherwise = floor (sqrt $ fromIntegral n)^2 == n
-
-fromDigits :: Integral a => [a] -> a
-fromDigits (d:ds) = foldl (\a b -> 10 * a + b) d ds
 
 toDigits :: Integral a => a -> [a]
 toDigits n = reverse $ toDigits' n
@@ -301,4 +281,149 @@ sameSide (p1x,p1y) (p2x,p2y) (ax,ay) (bx,by) = dotProduct [cp1] [cp2] >= 0
 
 pointIsInTriangle :: (Int, Int) -> Triangle -> Bool
 pointIsInTriangle p (Triangle a b c) = sameSide p a b c && sameSide p b a c && sameSide p c a b
+
+differences :: Num a => [a] -> [a]
+differences [a,b] = [b - a]
+differences (a:b:bs) = (b - a) : differences (b : bs)
+differences _ = []
+
+ratioTo :: Integral a => a -> [a] -> [Ratio a]
+ratioTo test [a] = [a % test]
+ratioTo test (a:as) = (a % test) : ratioTo test as
+
+ratios :: Integral a => [a] -> [Ratio a]
+ratios [a,b] = [b % a]
+ratios (a:b:bs) = (b % a) : ratios (b : bs)
+ratios _ = []
+
+evalRatio :: (Integral a, Fractional b) => Ratio a -> b
+evalRatio f = fromIntegral (numerator f) / fromIntegral (denominator f)
+
+triangleNumber :: Integral a => a -> a
+triangleNumber n = n * (n + 1) `div` 2
+
+triangleN :: Integral a => a -> a
+triangleN n = fst $ intQuadratic 1 1 ((-2) * n)
+
+intQuadratic :: Integral a => a -> a -> a -> (a, a)
+intQuadratic a b c = mapPair round $ quadratic a' b' c'
+    where a' = fromIntegral a
+          b' = fromIntegral b
+          c' = fromIntegral c
+
+quadratic :: (RealFrac a, Floating a) => a -> a -> a -> (a, a)
+quadratic a b c = (x0, x1)
+    where x0 = ((-b) + sqrt (b**2 - 4*a*c)) / (2 * a)
+          x1 = ((-b) - sqrt (b**2 - 4*a*c)) / (2 * a)
+
+pentagonal n = n * (3 * n - 1) `div` 2
+pentagonalNumbers limit = takeWhile (<= limit) (map pentagonal znonzero)
+
+n = [1..]
+
+z = 0 : [y | n <- [1..], y <- [n, -n]]
+
+znonzero = tail z
+
+points = [(x, y) | n <- [1..], x <- take n z, y <- take n z]
+
+fromDigits :: Num a => [a] -> a
+fromDigits = foldl (\a b -> 10 * a + b) 0
+
+digits :: Integral a => a -> [a]
+digits = digits'
+    where digits' n
+            | n < 10 = [n]
+            | otherwise = m : digits' d
+            where (d, m) = n `quotRem` 10
+
+sumDigits :: Integral a => a -> a
+sumDigits = sum . digits
+
+incrementAt :: Integral a => [a] -> Int -> [a]
+incrementAt xs i = take i xs ++ [e + 1] ++ drop (i + 1) xs
+    where e = xs !! i
+
+incrementDigitsToIf :: Integral a => a -> ([a] -> Bool) -> [a] -> [a]
+incrementDigitsToIf v f ns = incrementDigitsToIf' ns 0
+    where incrementDigitsToIf' ds i
+            | i >= length ds = ds ++ [0]
+            | f (incrementAt ds i) = incrementAt ds i
+            | otherwise = incrementDigitsToIf' (setAt ds i v) (i + 1)
+
+incrementDigitsIf :: Integral a => ([a] -> Bool) -> [a] -> [a]
+incrementDigitsIf = incrementDigitsToIf 0
+
+allProducts :: (Ord a, Num a) => a -> [a] -> [a]
+allProducts _ [] = []
+allProducts limit (n:ns) = allProducts' (n:ns) ++ allProducts limit ns
+    where allProducts' [] = []
+          allProducts' (x:xs)
+            | n * x > limit = []
+            | otherwise = n * x : allProducts' xs
+
+partialSums :: Num a => [a] -> [a]
+partialSums = partialSums' 0
+    where partialSums' i [] = [i]
+          partialSums' i (x:xs) = i + x : partialSums' (i + x) xs
+
+truncates :: Integral a => a -> [a]
+truncates n = truncates' $ init $ reverse $ digits n
+    where truncates' [] = []
+          truncates' xs = fromDigits xs : truncates' (init xs)
+
+toCartesian :: PolarPoint -> Point
+toCartesian (r, theta) = (r * cos theta, r * sin theta)
+
+toPolar :: Point -> PolarPoint
+toPolar (x, y) = (sqrt (x^2 + y^2), atan (y / x))
+sumPair :: Num a => (a, a) -> (a, a) -> (a, a)
+(a1, b1) `sumPair` (a2, b2) = (a1 + a2, b1 + b2)
+
+distance :: (Integral a, Floating b) => (a, a) -> (a, a) -> b
+distance (x1, y1) (x2, y2) = sqrt $ (x1f - x2f)**2 + (y1f - y2f)**2
+    where (x1f, y1f) = (fromIntegral x1, fromIntegral y1)
+          (x2f, y2f) = (fromIntegral x2, fromIntegral y2)
+
+type Point = (Float, Float) -- (x, y)
+type PolarPoint = (Float, Float) -- (r, theta)
+
+average xs = realToFrac (sum xs) / genericLength xs
+
+averageFirst :: Floating a => [(a, b)] -> (a, b)
+averageFirst xs = (a / len, b)
+    where (a, b) = sumFirst xs
+          len = fromIntegral $ length xs
+
+averageSecond :: Floating a => [(b, a)] -> (b, a)
+averageSecond xs = (a, b / len)
+    where (a, b) = sumSecond xs
+          len = fromIntegral $ length xs
+
+sumFirst :: Num a => [(a, b)] -> (a, b)
+sumFirst [(a,b)] = (a, b)
+sumFirst ((a, b):xs) = (a + sa, b)
+    where (sa, _) = sumFirst xs
+
+sumSecond :: Num a => [(b, a)] -> (b, a)
+sumSecond [(a,b)] = (a, b)
+sumSecond ((a, b):xs) = (a, b + sb)
+    where (_, sb) = sumSecond xs
+
+allRatios :: Integral a => [a] -> [Ratio a]
+allRatios ns = concatMap(\a -> map (% a) ns) $ filter (/= 0) ns
+
+averagePairs :: Floating a => [(a, a)] -> (a, a)
+averagePairs ps = (a / len, b / len)
+    where (a, b) = sumPairs ps
+          len = fromIntegral $ length ps
+
+pairRatio :: Integral a => (a, a) -> Ratio a
+pairRatio (a, b) = a % b
+
+sumPairs :: (Num a, Num b) => [(a, b)] -> (a, b)
+sumPairs [] = (0, 0)
+sumPairs [(a,b)] = (a,b)
+sumPairs ((a, b):xs) = (a + na, b + nb)
+    where (na, nb) = sumPairs xs
 

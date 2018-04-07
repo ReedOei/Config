@@ -47,3 +47,4 @@ shuffle xs = do
     x <- choice xs
     nextXs <- shuffle (remove xs x)
     return (x : nextXs)
+

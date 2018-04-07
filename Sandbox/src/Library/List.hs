@@ -6,7 +6,7 @@ module Library.List ((!!!),
                      crop, reshape,
                      diagonals,
                      neighbors,
-                     combinations, combinationElements, allSubsequences, sequences,
+                     combinations, combinationElements, sequences,
                      groupOverlap, groupFromStart,
                      halve,
                      removeAt, remove, removeAll, replaceInfix,
@@ -14,7 +14,6 @@ module Library.List ((!!!),
                      dims, width, height,
                      padL, padR,
                      separateList,
-                     intersperseBy,
                      count, countDuplicates, countDuplicatesBy, unduplicate,
                      zipTo) where
 import Data.List (inits, tails)
@@ -46,9 +45,6 @@ countDuplicates = countDuplicatesBy id
 countDuplicatesBy :: (Eq a, Eq b, Num c) => (a -> b) -> [a] -> [(c, b)]
 countDuplicatesBy _ [] = []
 countDuplicatesBy f (x:xs) = (count (\i -> f i == f x) xs + 1, f x) : countDuplicatesBy f (filter (\i -> f i /= f x) xs)
-
-intersperseBy _ [] = []
-intersperseBy f (l:ls) = l ++ [f (last l)] ++ intersperseBy f ls
 
 isInRange :: Ord a => a -> (a, a) -> Bool
 isInRange v (a, b) = a <= v && v < b
@@ -125,12 +121,6 @@ neighbors rows (x, y) = [rows !!! (x + dx, y + dy) | dx <- [-1, 0, 1], dy <- [-1
                                              (x + dx) `isInRange` (0, w),
                                              (y + dy) `isInRange` (0, h)]
      where (w, h) = dims rows
-
-allSubsequences :: [a] -> [[a]]
-allSubsequences [] = []
-allSubsequences [x] = [[x]]
-allSubsequences x@(_:xs) = subsequences' x ++ allSubsequences xs
-    where subsequences' as = tail $ inits as
 
 groupOverlap :: Int -> [a] -> [[a]]
 groupOverlap _ [] = []

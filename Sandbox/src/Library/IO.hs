@@ -40,3 +40,4 @@ showMinBy f (v:vs) = do
 
 showProgressZipped limit = mapM_ (\(i, r) -> progressBar (msg (show i ++ " of " ++ show limit ++ " (" ++ show r ++ ")")) percentage 80 (Progress i limit))
 showProgress limit = mapM_ (\i -> progressBar (msg (show i ++ " of " ++ show limit)) percentage 80 (Progress i limit))
+
