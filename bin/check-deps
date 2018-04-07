@@ -1,0 +1,15 @@
+#!/bin/bash
+
+which stack > /dev/null
+if [[ "$rc" -ne "0" ]]; then
+    wget -qO- https://get.haskellstack.org/ | sh
+
+    stack config set resolver lts-11.3
+    stack upgrade
+    stack update
+    stack setup
+fi
+
+contents="`cat ~/Config/files/stack.yaml`"
+echo "${contents//"{HOME}"/`echo ~`}" > ~/.stack/global-project/stack.yaml
+
