@@ -159,7 +159,8 @@ alias speedcompare="~/Dropbox/Programming/Haskell/SpeedCompare/dist/build/SpeedC
 alias intellij="~/idea-IU-172.3968.16/bin/idea.sh"
 alias pycharm="sh ~/pycharm-community-2017.3.3/bin/pycharm.sh"
 alias android_studio="~/Downloads/android-studio/bin/studio.sh"
-alias ghci="stack ghci"
+alias ghci="stack ghci --no-load"
+alias ghci-lib="stack ghci"
 alias ghc="stack ghc"
 
 export VISUAL=vim
