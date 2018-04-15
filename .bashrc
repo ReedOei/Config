@@ -140,7 +140,9 @@ export LANG=en_US.UTF-8
 export DISPLAY=:0
 
 # For the website
-. ~/.secrets
+if [[ -e "~/.secrets" ]]; then
+    . ~/.secrets
+fi
 
 check-deps
 

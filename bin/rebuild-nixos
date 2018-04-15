@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo cp -r ~/Config/nixos /etc/
+sudo nixos-rebuild switch
