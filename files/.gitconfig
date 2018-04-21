@@ -1,0 +1,18 @@
+[user]
+    email = oei.reed@gmail.com
+    name = Reed Oei
+[credential "https://github.com"]
+    username = ReedOei
+
+[credential "https://github-dev.cs.illinois.edu"]
+    username = reedoei2
+    email = reedoei2@illinois.edu
+
+[core]
+	autocrlf = input
+[color]
+	ui = auto
+[http]
+	cookiefile = /home/roei/.gitcookies
+[push]
+	default = simple

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+git log --format=oneline --before="$1" | head -1 | sed -E "s/^([0-9a-f]+).*/\1/g"
+

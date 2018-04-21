@@ -27,3 +27,6 @@ if [[ -z "`git config --get user.email`" ]]; then
     git config --global user.email "oei.reed@gmail.com"
 fi
 
+cp ~/Config/files/ghci.conf ~/.ghc/ghci.conf
+cp ~/Config/files/.gitconfig ~/.gitconfig
+

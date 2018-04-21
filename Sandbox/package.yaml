@@ -31,6 +31,7 @@ dependencies:
 - mtl
 - random
 - array
+- regex-pcre
 
 library:
   source-dirs: src

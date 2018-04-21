@@ -99,7 +99,7 @@ endfunction
 
 function! MakeTurtleScript()
     normal ggO
-    call append('.', ["#!/usr/bin/env stack", "{- stack", "   script", "   --resolver lts-10.5", "   --package turtle", "-}", ""])
+    call append('.', ["#!/usr/bin/env stack", "{- stack", "   script", "   --resolver lts-11.3", "   --package turtle", "-}", ""])
     normal dd
 endfunction
 
@@ -128,12 +128,19 @@ function! WriteItemize()
     startinsert
 endfunction
 
+function! PrintIterable()
+    let name = input('Variable: ')
+
+    call append('.', ["std::cout << \"" . name . ": [\";", "size_t idx_" . name . " = 0;", "for (auto s : " . name . ") {", "    std::cout << s;", "    if (idx_" . name . " < " . name . ".size() - 1) {", "        std::cout << \",\";", "    }", "    idx_" . name . "++;", "}", "std::cout << \"]\" << std::endl;"])
+endfunction
+
 autocmd BufReadPost * :call CheckHaskellScript()
 
 autocmd FileType haskell nnoremap <F2> :call MakeTurtleScript()<CR>
 
 autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
 autocmd FileType cpp nnoremap <F3> :call WriteClassImpl()<CR>
+autocmd FileType cpp nnoremap <F4> :call PrintIterable()<CR>
 
 autocmd FileType tex nnoremap <F2> :call WriteEnv("proposition")<CR>
 autocmd FileType tex nnoremap <F3> :call WriteEnvInput()<CR>
