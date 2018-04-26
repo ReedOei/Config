@@ -23,6 +23,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-scripts/Conque-GDB'
 Plugin 'vim-scripts/mercury.vim'
 Plugin 'adimit/prolog.vim'
+Plugin 'ARM9/mips-syntax-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -78,6 +79,8 @@ if has("autocmd")
     " So do not expand tabs into space.
     autocmd FileType make setlocal noexpandtab
 endif
+
+au BufNewFile,BufRead *.s,*.S set filetype=mips
 
 set tabpagemax=1000
 
