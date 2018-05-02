@@ -30,6 +30,8 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
+autocmd BufRead,BufNewFile *.m set filetype=mercury
+au BufNewFile,BufRead *.s,*.S set filetype=mips
 
 autocmd FileType idris setlocal commentstring=--\ %s
 
@@ -79,8 +81,6 @@ if has("autocmd")
     " So do not expand tabs into space.
     autocmd FileType make setlocal noexpandtab
 endif
-
-au BufNewFile,BufRead *.s,*.S set filetype=mips
 
 set tabpagemax=1000
 

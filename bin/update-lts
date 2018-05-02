@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+resolver=$(curl -s https://www.stackage.org/download/snapshots.json | jq -r ".lts")
+
+echo "Updating ${1}'s resolver to: $resolver"
+
+sed -E "s/resolver: .*$/resolver: $resolver/g" $1 > temp
+mv temp $1
+
