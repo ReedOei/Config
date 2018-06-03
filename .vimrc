@@ -24,10 +24,13 @@ Plugin 'vim-scripts/Conque-GDB'
 Plugin 'vim-scripts/mercury.vim'
 Plugin 'adimit/prolog.vim'
 Plugin 'ARM9/mips-syntax-vim'
+Plugin 'lifepillar/vim-solarized8'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+colorscheme desert "solarized8_flat
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
 autocmd BufRead,BufNewFile *.m set filetype=mercury
