@@ -30,7 +30,7 @@ Plugin 'lifepillar/vim-solarized8'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-colorscheme desert "solarized8_flat
+colorscheme solarized8_flat "desert
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
 autocmd BufRead,BufNewFile *.m set filetype=mercury
