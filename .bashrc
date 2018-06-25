@@ -16,8 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
+HISTSIZE=100000
+HISTFILESIZE=200000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -159,7 +159,7 @@ alias yt2mp3='youtube-dl --extract-audio --audio-format mp3'
 alias yt='youtube-dl --merge-output-format mp4 --format mp4'
 alias refresh_wifi='sudo systemctl restart network-manager'
 alias speedcompare="~/Dropbox/Programming/Haskell/SpeedCompare/dist/build/SpeedCompare/SpeedCompare"
-alias intellij="~/idea-IU-172.3968.16/bin/idea.sh"
+alias intellij="~/idea-IU-181.4445.78/bin/idea.sh"
 alias pycharm="sh ~/pycharm-community-2017.3.3/bin/pycharm.sh"
 alias android_studio="~/Downloads/android-studio/bin/studio.sh"
 alias ghci="stack ghci --no-load"
