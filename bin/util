@@ -1,0 +1,30 @@
+#!/usr/bin/env stack
+{- stack
+   script
+   --resolver lts-11.3
+   --package turtle
+-}
+
+import Data.Char
+import Data.List
+import Data.Ord
+
+import System.Environment
+
+commonStart :: Eq a => [[a]] -> [a]
+commonStart words = snd $ maximumBy (comparing fst) commonStrings
+    where
+        maxLen = maximum $ map length words
+        commonStrings = [(l, w) | l <- [0..maxLen],
+                                  let wordLists@(w:_) = map (take l) words,
+                                  all (== w) wordLists]
+
+main :: IO ()
+main = do
+    args <- getArgs
+
+    case args of
+        ("common":words) -> putStrLn $ commonStart words
+        ("common-word":words) -> putStrLn $ takeWhile isAlpha $ commonStart words
+        _ -> putStrLn $ "Cannot handle arguments: " ++ show args
+
