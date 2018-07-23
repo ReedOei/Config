@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-which stack > /dev/null
-if [[ "$rc" -ne "0" ]]; then
+if ~ which stack &> /dev/null; then
     wget -qO- https://get.haskellstack.org/ | sh
 
     stack config set resolver lts-11.6
@@ -10,8 +9,10 @@ if [[ "$rc" -ne "0" ]]; then
     stack setup
 fi
 
-contents="`cat ~/Config/files/stack.yaml`"
-echo "${contents//"{HOME}"/`echo ~`}" > ~/.stack/global-project/stack.yaml
+if [[ -d "~/.stack/global-project/" ]]; then
+    contents="`cat ~/Config/files/stack.yaml`"
+    echo "${contents//"{HOME}"/`echo ~`}" > ~/.stack/global-project/stack.yaml
+fi
 
 # Make sure we have vundle so vim will be nice.
 if [[ -d "~/.vim/bundle/Vundle.vim" ]]; then
@@ -27,6 +28,9 @@ if [[ -z "`git config --get user.email`" ]]; then
     git config --global user.email "oei.reed@gmail.com"
 fi
 
-cp ~/Config/files/ghci.conf ~/.ghc/ghci.conf
+if [[ -d "~/.ghc" ]]; then
+    cp ~/Config/files/ghci.conf ~/.ghc/ghci.conf
+fi
+
 cp ~/Config/files/.gitconfig ~/.gitconfig
 

@@ -133,7 +133,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export ANDROID_HOME=$HOME/Android/Sdk/
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
+export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_172
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -146,6 +146,7 @@ if [[ -e "~/.secrets" ]]; then
 fi
 
 check-deps
+git config --global credential.helper store
 
 alias fallouthack="~/Dropbox/Programming/Haskell/FalloutHacker"
 alias file_size_kb="du -k \"$filename\" | cut -f1"
