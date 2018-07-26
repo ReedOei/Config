@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+if [[ ! -d "~/Config" ]]; then
+    git clone https://github.com/ReedOei/Config ~/Config
+else
+    (
+        cd ~/Config
+        git pull
+    )
+fi
+
+echo "source ~/Config/.vimrc" > ~/.vimrc
+echo "source ~/Config/.bashrc" > ~/.bashrc
+
