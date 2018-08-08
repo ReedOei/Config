@@ -27,12 +27,13 @@ Plugin 'ARM9/mips-syntax-vim'
 " Plugin 'lifepillar/vim-solarized8'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'derekwyatt/vim-scala'
+Plugin 'wimstefan/vim-artesanal'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-colorscheme solarized
+colorscheme artesanal
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
 autocmd BufRead,BufNewFile *.m set filetype=mercury
