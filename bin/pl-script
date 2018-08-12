@@ -9,7 +9,21 @@ main(Argv) :-
     format('Please provide the name of the file to create~n', []);
 
     Argv = [Fname|_],
-    format(atom(A), '#!/usr/bin/env swipl~n~n:- initialization(main, main).~n~nmain(Argv).~n~n', []),
+    format(atom(A),
+'#!/usr/bin/env swipl
+
+:- initialization(main, main).
+
+root(Root) :-
+    source_file(File),
+    atom_concat(_, \'~w\', File),
+    file_directory_name(File, Root).
+
+main(Argv) :-
+    root(Root).
+
+', [Fname]),
+
     write_file(Fname, A),
 
     chmod(Fname, +x).
