@@ -1,0 +1,16 @@
+#!/usr/bin/env swipl
+
+:- initialization(main, main).
+
+:- use_module(library(achelois)).
+
+main(Argv) :-
+    Argv = [],
+    format('Please provide the name of the file to create~n', []);
+
+    Argv = [Fname|_],
+    format(atom(A), '#!/usr/bin/env swipl~n~n:- initialization(main, main).~n~nmain(Argv).~n~n', []),
+    write_file(Fname, A),
+
+    chmod(Fname, +x).
+
