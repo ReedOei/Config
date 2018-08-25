@@ -17,7 +17,7 @@ echo "source ~/Config/.vimrc" > ~/.vimrc
 echo "source ~/Config/.bashrc" > ~/.bashrc
 
 sudo apt update
-sudo apt install maven swi-prolog openjdk-8-jre openjdk-8-jdk openjdk-8-source git zip vim
+sudo apt install maven swi-prolog openjdk-8-jre openjdk-8-jdk openjdk-8-source git zip vim curl jq
 
 swipl -g "pack_install(achelois), pack_upgrade(achelois), halt."
 
