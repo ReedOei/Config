@@ -1,0 +1,62 @@
+#!/usr/bin/env swipl
+
+:- initialization(main, main).
+
+:- use_module(library(filesex)).
+:- use_module(library(achelois)).
+
+main(Argv) :-
+    Argv = [Archive|_] ->
+        getenv('HOME', UserHome),
+        directory_file_path(UserHome, '.installed-archives', InstallationPath),
+        install(InstallationPath, Archive);
+
+    format('Expected a single argument specifying the archive to install, got ~w~n', [Argv]).
+
+install(InstallationPath, Archive) :-
+    extract_path(InstallationPath, Archive, ExtractPath),
+    make_directory_path(InstallationPath),
+    extract(Archive, ExtractPath),
+    bin_path(ExtractPath, BinPath),
+    add_to_path(BinPath).
+
+extract(ArchivePath, ExtractPath) :-
+    atom_concat(_, 'zip', ArchivePath) -> process(path(unzip), [ArchivePath, '-d', ExtractPath]);
+    atom_concat(_, 'tgz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xz', ArchivePath]);
+    atom_concat(_, 'tar.gz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xz', ArchivePath]);
+    atom_concat(_, 'tar.gzip', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xz', ArchivePath]);
+    atom_concat(_, 'tbz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xj', ArchivePath]);
+    atom_concat(_, 'tar.bz2', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xj', ArchivePath]);
+    atom_concat(_, 'tar.bzip2', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xj', ArchivePath]);
+    atom_concat(_, 'tar', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-x', ArchivePath]);
+
+    format('Unknown archive type! (~w~n)', ArchivePath),
+    false. % So that execution does not continue
+
+extract_path(InstallationPath, Archive, ExtractPath) :-
+    file_base_name(Archive, ArchiveFilename),
+    file_name_extension(NoExtension, _, ArchiveFilename),
+    directory_file_path(InstallationPath, NoExtension, ExtractPath).
+
+bin_path(ExtractPath, BinPath) :-
+    walk(ExtractPath, Bin), file_base_name(Bin, 'bin') -> BinPath = Bin;
+
+    BinPath = ExtractPath.
+
+bash_profile_filename('.bashrc').
+bash_profile_filename('.bash_profile').
+
+bash_profile(BashProfile) :-
+    getenv('HOME', UserHome),
+    bash_profile_filename(Filename),
+    directory_file_path(UserHome, Filename, BashProfile),
+    exists_file(BashProfile).
+
+add_to_path(Path) :-
+    bash_profile(BashProfile),
+    read_file_lines(BashProfile, Lines),
+    format(atom(NewLine), 'export PATH=$PATH:~w', Path),
+    append(Lines, [NewLine], NewLines),
+    atomic_list_concat(NewLines, '\n', NewBashProfile),
+    write_file(BashProfile, NewBashProfile).
+

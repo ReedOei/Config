@@ -3,3 +3,12 @@
 echo $2
 python -m timeit -n 1 -r "$1" -s 'import os' "os.system('$2')"
 
+if [[ ! -z "$3" ]]; then
+    for i in {0.."$1"}; do
+        time -f "%U" for i in {0.."$2"}
+        do
+            $("$2")
+        done
+    done
+fi
+

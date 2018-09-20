@@ -28,6 +28,7 @@ Plugin 'ARM9/mips-syntax-vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'wimstefan/vim-artesanal'
+Plugin 'derekelkins/agda-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
