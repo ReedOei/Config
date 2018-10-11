@@ -25,7 +25,7 @@ Plugin 'vim-scripts/mercury.vim'
 Plugin 'adimit/prolog.vim'
 Plugin 'ARM9/mips-syntax-vim'
 " Plugin 'lifepillar/vim-solarized8'
-Plugin 'altercation/vim-colors-solarized'
+" Plugin 'altercation/vim-colors-solarized'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'wimstefan/vim-artesanal'
 Plugin 'derekelkins/agda-vim'
@@ -73,6 +73,8 @@ let g:syntastic_disabled_filetypes = ['java']
 
 syntax on
 set number
+
+set scrolloff=3
 
 xmap ga <Plug>(EasyAlign)
 
@@ -174,4 +176,10 @@ autocmd BufRead,BufNewFile * call CheckProlog()
 
 " set autoread
 " au FocusGained,BufEnter * :checktime " Check for autoread.
+
+au BufRead,BufNewFile *.k set filetype=kframework
+au! Syntax kframework source kframework.vim
+syn on
+
+au BufRead,BufNewFile *.enki set filetype=enki
 

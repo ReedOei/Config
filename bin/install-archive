@@ -22,13 +22,13 @@ install(InstallationPath, Archive) :-
 
 extract(ArchivePath, ExtractPath) :-
     atom_concat(_, 'zip', ArchivePath) -> process(path(unzip), [ArchivePath, '-d', ExtractPath]);
-    atom_concat(_, 'tgz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xz', ArchivePath]);
-    atom_concat(_, 'tar.gz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xz', ArchivePath]);
-    atom_concat(_, 'tar.gzip', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xz', ArchivePath]);
-    atom_concat(_, 'tbz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xj', ArchivePath]);
-    atom_concat(_, 'tar.bz2', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xj', ArchivePath]);
-    atom_concat(_, 'tar.bzip2', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xj', ArchivePath]);
-    atom_concat(_, 'tar', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-x', ArchivePath]);
+    atom_concat(_, 'tgz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xzf', ArchivePath]);
+    atom_concat(_, 'tar.gz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xzf', ArchivePath]);
+    atom_concat(_, 'tar.gzip', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xzf', ArchivePath]);
+    atom_concat(_, 'tbz', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xjf', ArchivePath]);
+    atom_concat(_, 'tar.bz2', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xjf', ArchivePath]);
+    atom_concat(_, 'tar.bzip2', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xjf', ArchivePath]);
+    atom_concat(_, 'tar', ArchivePath) -> process(path(tar), ['-C', ExtractPath, '-xf', ArchivePath]);
 
     format('Unknown archive type! (~w~n)', ArchivePath),
     false. % So that execution does not continue
