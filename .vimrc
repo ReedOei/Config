@@ -146,6 +146,60 @@ function! PrintIterable()
     call append('.', ["std::cout << \"" . name . ": [\";", "size_t idx_" . name . " = 0;", "for (auto s : " . name . ") {", "    std::cout << s;", "    if (idx_" . name . " < " . name . ".size() - 1) {", "        std::cout << \",\";", "    }", "    idx_" . name . "++;", "}", "std::cout << \"]\" << std::endl;"])
 endfunction
 
+" From: https://stackoverflow.com/a/6271254
+function! GetVisualSelection()
+    " Why is this not a built-in Vim script function?!
+    let [line_start, column_start] = getpos("'<")[1:2]
+    let [line_end, column_end] = getpos("'>")[1:2]
+    let lines = getline(line_start, line_end)
+    if len(lines) == 0
+        return ''
+    endif
+    let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][column_start - 1:]
+    return join(lines, "\n")
+endfunction
+
+function! PrePad(s,amt,...)
+    if a:0 > 0
+        let char = a:1
+    else
+        let char = ' '
+    endif
+    return repeat(char,a:amt - len(a:s)) . a:s
+endfunction
+
+function! Indent(str)
+	return PrePad(a:str, len(a:str) + indent('.'))
+endfunction
+
+function! PrintVarAsD(visual)
+    if a:visual
+        let var = GetVisualSelection()
+    else
+        let var = expand("<cword>")
+    endif
+
+    let str = Indent("printf(\"" . var . " = %d\\n\", " . var . ");")
+
+    normal k
+    call append('.', [str])
+endfunction
+
+function! PrintVar(visual)
+    if a:visual
+        let var = GetVisualSelection()
+    else
+        let var = expand("<cword>")
+    endif
+
+    let t = input('Format as: ')
+    let str = Indent("printf(\"" . var . " = %" . t . "\\n\", " . var . ");")
+
+    normal k
+    call append('.', [str])
+endfunction
+
 autocmd BufReadPost * :call CheckHaskellScript()
 
 autocmd FileType haskell nnoremap <F2> :call MakeTurtleScript()<CR>
@@ -153,6 +207,12 @@ autocmd FileType haskell nnoremap <F2> :call MakeTurtleScript()<CR>
 autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
 autocmd FileType cpp nnoremap <F3> :call WriteClassImpl()<CR>
 autocmd FileType cpp nnoremap <F4> :call PrintIterable()<CR>
+
+autocmd FileType c nnoremap <F2> :call PrintVarAsD(0)<CR>
+autocmd FileType c nnoremap <F3> :call PrintVar(0)<CR>
+
+autocmd FileType c vnoremap <F2> :call PrintVarAsD(1)<CR>
+autocmd FileType c vnoremap <F3> :call PrintVar(1)<CR>
 
 autocmd FileType tex nnoremap <F2> :call WriteEnv("proposition")<CR>
 autocmd FileType tex nnoremap <F3> :call WriteEnvInput()<CR>
