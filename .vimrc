@@ -218,6 +218,8 @@ autocmd FileType tex nnoremap <F2> :call WriteEnv("proposition")<CR>
 autocmd FileType tex nnoremap <F3> :call WriteEnvInput()<CR>
 autocmd FileType tex nnoremap <F4> :call WriteItemize()<CR>
 
+nnoremap <F5> :!make<CR>
+
 let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
 let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
 let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
