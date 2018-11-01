@@ -122,7 +122,6 @@ bind '"\e[A":history-search-backward'
 # arrow down
 bind '"\e[B":history-search-forward'
 
-export PATH=$PATH:~/julia/bin/
 export PATH=$PATH:/usr/local/texlive/2017/bin/x86_64-linux
 export PATH=$PATH:$HOME/.cabal/bin/
 export PATH=$PATH:$HOME/.local/bin/
@@ -160,10 +159,6 @@ alias yt2mp3='youtube-dl --extract-audio --audio-format mp3'
 alias yt='youtube-dl --merge-output-format mp4 --format mp4'
 alias refresh_wifi='sudo systemctl restart network-manager'
 alias speedcompare="~/Dropbox/Programming/Haskell/SpeedCompare/dist/build/SpeedCompare/SpeedCompare"
-alias intellij="~/idea-IU-181.4445.78/bin/idea.sh"
-alias pycharm="sh ~/pycharm-community-2017.3.3/bin/pycharm.sh"
-alias clion="~/Downloads/clion-2018.1/bin/clion.sh"
-alias android_studio="~/Downloads/android-studio/bin/studio.sh"
 alias ghci="stack ghci --no-load"
 alias ghci-lib="stack ghci"
 alias ghc="stack ghc"

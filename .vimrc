@@ -111,7 +111,7 @@ endfunction
 
 function! MakeTurtleScript()
     normal ggO
-    call append('.', ["#!/usr/bin/env stack", "{- stack", "   script", "   --resolver lts-11.3", "   --package turtle", "-}", ""])
+    call append('.', ["#!/usr/bin/env stack", "{- stack", "   script", "   --resolver lts-12.16", "   --package turtle", "-}", ""])
     normal dd
 endfunction
 
