@@ -20,7 +20,6 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'tpope/vim-commentary'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-scripts/Conque-GDB'
 Plugin 'vim-scripts/mercury.vim'
 Plugin 'adimit/prolog.vim'
 Plugin 'ARM9/mips-syntax-vim'
@@ -29,6 +28,8 @@ Plugin 'ARM9/mips-syntax-vim'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'wimstefan/vim-artesanal'
 Plugin 'derekelkins/agda-vim'
+Plugin 'chris-bacon/haskell-refactor'
+Plugin 'dan-t/vim-hsimport'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -61,7 +62,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_haskell_checkers = ['hlint']
+let g:syntastic_haskell_checkers = ['hlint', 'hdevtools']
 let g:syntastic_idris_checkers = ['idris']
 let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_java_checkers = []
@@ -203,6 +204,8 @@ endfunction
 autocmd BufReadPost * :call CheckHaskellScript()
 
 autocmd FileType haskell nnoremap <F2> :call MakeTurtleScript()<CR>
+autocmd FileType haskell nmap <silent> <F3> :silent update <bar> HsimportModule<CR>
+autocmd FileType haskell nmap <silent> <F4> :silent update <bar> HsimportSymbol<CR>
 
 autocmd FileType cpp nnoremap <F2> :call MakeHeader()<CR>
 autocmd FileType cpp nnoremap <F3> :call WriteClassImpl()<CR>

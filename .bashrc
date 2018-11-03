@@ -139,29 +139,13 @@ export LANG=en_US.UTF-8
 
 export DISPLAY=:0
 
-# For the website
-if [[ -e "~/.secrets" ]]; then
-    . ~/.secrets
-fi
-
 check-deps
 git config --global credential.helper store
 
-alias fallouthack="~/Dropbox/Programming/Haskell/FalloutHacker"
-alias file_size_kb="du -k \"$filename\" | cut -f1"
-alias dump_routines="mysqldump -p --no-create-db --no-create-info --no-data --routines"
-alias cabal_install='cabal configure && cabal build && cabal install -j'
-alias cookie_clicker='python ~/Dropbox/Programming/Sage/lib/cookie_clicker_bot.py'
-alias sage_lib='cd ~/Dropbox/Programming/Sage/lib/'
-alias quiz_bowl='python ~/Dropbox/Programming/Sage/lib/quiz_bowl.py'
-alias utility='python ~/Dropbox/Programming/Python/Utility/utility.py'
 alias yt2mp3='youtube-dl --extract-audio --audio-format mp3'
 alias yt='youtube-dl --merge-output-format mp4 --format mp4'
 alias refresh_wifi='sudo systemctl restart network-manager'
 alias speedcompare="~/Dropbox/Programming/Haskell/SpeedCompare/dist/build/SpeedCompare/SpeedCompare"
-alias ghci="stack ghci --no-load"
-alias ghci-lib="stack ghci"
-alias ghc="stack ghc"
 
 export VISUAL=vim
 export EDITOR="$VISUAL"
