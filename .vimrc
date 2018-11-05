@@ -30,6 +30,7 @@ Plugin 'wimstefan/vim-artesanal'
 Plugin 'derekelkins/agda-vim'
 Plugin 'chris-bacon/haskell-refactor'
 Plugin 'dan-t/vim-hsimport'
+Plugin 'zxqfl/tabnine-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -245,6 +246,8 @@ autocmd BufRead,BufNewFile * call CheckProlog()
 au BufRead,BufNewFile *.k set filetype=kframework
 au! Syntax kframework source kframework.vim
 syn on
+
+au BufRead,BufNewFile *.maude set filetype=maude
 
 au BufRead,BufNewFile *.enki set filetype=enki
 
