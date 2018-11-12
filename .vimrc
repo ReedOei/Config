@@ -7,39 +7,41 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'joom/latex-unicoder.vim'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'bling/vim-airline'
-Plugin 'ervandew/supertab'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'JuliaEditorSupport/julia-vim'
+" Plugin 'scrooloose/nerdcommenter'
+" Plugin 'bling/vim-airline'
+" Plugin 'ervandew/supertab'
+" Plugin 'Shougo/neocomplete.vim'
+" Plugin 'JuliaEditorSupport/julia-vim'
 Plugin 'idris-hackers/idris-vim'
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
 Plugin 'eagletmt/neco-ghc'
 Plugin 'Shougo/vimproc.vim'
-Plugin 'junegunn/vim-easy-align'
+" Plugin 'junegunn/vim-easy-align'
 Plugin 'tpope/vim-commentary'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-scripts/mercury.vim'
+" Plugin 'vim-scripts/mercury.vim'
 Plugin 'adimit/prolog.vim'
-Plugin 'ARM9/mips-syntax-vim'
+" Plugin 'ARM9/mips-syntax-vim'
 " Plugin 'lifepillar/vim-solarized8'
 " Plugin 'altercation/vim-colors-solarized'
 Plugin 'derekwyatt/vim-scala'
-Plugin 'wimstefan/vim-artesanal'
-Plugin 'derekelkins/agda-vim'
-Plugin 'chris-bacon/haskell-refactor'
-Plugin 'dan-t/vim-hsimport'
+" Plugin 'wimstefan/vim-artesanal'
+" Plugin 'brafales/vim-desert256'
+Plugin 'vim-scripts/Simple256'
+" Plugin 'derekelkins/agda-vim'
+" Plugin 'chris-bacon/haskell-refactor'
+" Plugin 'dan-t/vim-hsimport'
 Plugin 'zxqfl/tabnine-vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-colorscheme artesanal
+" colorscheme artesanal
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
-autocmd BufRead,BufNewFile *.m set filetype=mercury
+" autocmd BufRead,BufNewFile *.m set filetype=mercury
 au BufNewFile,BufRead *.s,*.S set filetype=mips
 
 autocmd FileType idris setlocal commentstring=--\ %s
@@ -248,6 +250,9 @@ au! Syntax kframework source kframework.vim
 syn on
 
 au BufRead,BufNewFile *.maude set filetype=maude
-
 au BufRead,BufNewFile *.enki set filetype=enki
+
+set wildmode=longest,list
+
+colorscheme simple256
 
