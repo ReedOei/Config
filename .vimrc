@@ -13,7 +13,7 @@ Plugin 'joom/latex-unicoder.vim'
 " Plugin 'Shougo/neocomplete.vim'
 " Plugin 'JuliaEditorSupport/julia-vim'
 Plugin 'idris-hackers/idris-vim'
-" Plugin 'vim-syntastic/syntastic'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'eagletmt/neco-ghc'
 Plugin 'Shougo/vimproc.vim'
 " Plugin 'junegunn/vim-easy-align'
@@ -26,9 +26,9 @@ Plugin 'adimit/prolog.vim'
 " Plugin 'lifepillar/vim-solarized8'
 " Plugin 'altercation/vim-colors-solarized'
 Plugin 'derekwyatt/vim-scala'
-" Plugin 'wimstefan/vim-artesanal'
+Plugin 'wimstefan/vim-artesanal'
 " Plugin 'brafales/vim-desert256'
-Plugin 'vim-scripts/Simple256'
+" Plugin 'vim-scripts/Simple256'
 " Plugin 'derekelkins/agda-vim'
 " Plugin 'chris-bacon/haskell-refactor'
 " Plugin 'dan-t/vim-hsimport'
@@ -38,7 +38,8 @@ Plugin 'zxqfl/tabnine-vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" colorscheme artesanal
+colorscheme artesanal
+" colorscheme simple256
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
 " autocmd BufRead,BufNewFile *.m set filetype=mercury
@@ -53,7 +54,7 @@ autocmd FileType idris setlocal commentstring=--\ %s
 let g:neocomplete#enable_at_startup = 1
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{SyntasticStatuslineFlag()} " Remove thsi if syntastic is removed
 set statusline+=%*
 
 let g:necoghc_enable_detailed_browse = 1
@@ -65,7 +66,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-let g:syntastic_haskell_checkers = ['hlint', 'hdevtools']
+" let g:syntastic_haskell_checkers = ['hlint', 'hdevtools']
 let g:syntastic_idris_checkers = ['idris']
 let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_java_checkers = []
@@ -73,7 +74,7 @@ let g:syntastic_java_checkers = []
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-let g:syntastic_disabled_filetypes = ['java']
+let g:syntastic_disabled_filetypes = ['java', 'haskell']
 
 syntax on
 set number
@@ -253,6 +254,4 @@ au BufRead,BufNewFile *.maude set filetype=maude
 au BufRead,BufNewFile *.enki set filetype=enki
 
 set wildmode=longest,list
-
-colorscheme simple256
 
