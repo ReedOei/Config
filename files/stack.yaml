@@ -3,4 +3,5 @@ extra-package-dbs: []
 packages:
     - location: {HOME}/Config/Sandbox
 extra-deps: []
-resolver: lts-11.11
+resolver: lts-13.4
+

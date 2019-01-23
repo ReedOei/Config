@@ -25,14 +25,12 @@ dependencies:
 - MissingH
 - lens
 - arithmoi
-- split
-- optparse-applicative
-- terminal-progress-bar
-- mtl
 - random
 - array
+- QuickCheck
 - regex-pcre
-- network
+- mtl
+- split
 
 library:
   source-dirs: src

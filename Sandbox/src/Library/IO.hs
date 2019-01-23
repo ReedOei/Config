@@ -1,9 +1,7 @@
 module Library.IO (noBuffer,
                    printFilterMap,
-                   showMaxBy, showMinBy,
-                   showProgress, showProgressZipped) where
+                   showMaxBy, showMinBy) where
 import System.IO
-import System.ProgressBar
 
 noBuffer :: IO ()
 noBuffer = hSetBuffering stdout NoBuffering
@@ -37,7 +35,4 @@ showMinBy f (v:vs) = do
                 print x
                 showMinBy' x xs
             | otherwise = showMinBy' cur xs
-
-showProgressZipped limit = mapM_ (\(i, r) -> progressBar (msg (show i ++ " of " ++ show limit ++ " (" ++ show r ++ ")")) percentage 80 (Progress i limit))
-showProgress limit = mapM_ (\i -> progressBar (msg (show i ++ " of " ++ show limit)) percentage 80 (Progress i limit))
 

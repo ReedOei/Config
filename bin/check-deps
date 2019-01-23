@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-if ~ which stack &> /dev/null; then
+if ! which stack &> /dev/null; then
     wget -qO- https://get.haskellstack.org/ | sh
 
-    stack config set resolver lts-11.6
+    stack config set resolver lts-13.4
     stack upgrade
     stack update
     stack setup
