@@ -19,7 +19,7 @@ echo "source ~/Config/.bashrc" > ~/.bashrc
 source ~/.bashrc
 
 sudo apt update
-sudo apt install swi-prolog openjdk-8-jre openjdk-8-jdk openjdk-8-source git zip vim curl jq sqlite3
+sudo apt install -y swi-prolog openjdk-8-jre openjdk-8-jdk openjdk-8-source git zip vim curl jq sqlite3 cloc
 
 wget "http://mirrors.ibiblio.org/apache/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz"
 tar -xzf "apache-maven-$MAVEN_VERSION-bin.tar.gz"
