@@ -12,6 +12,8 @@ Plugin 'joom/latex-unicoder.vim'
 " Plugin 'ervandew/supertab'
 " Plugin 'Shougo/neocomplete.vim'
 " Plugin 'JuliaEditorSupport/julia-vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
 Plugin 'idris-hackers/idris-vim'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'eagletmt/neco-ghc'
@@ -20,6 +22,7 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'tpope/vim-commentary'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'lervag/vimtex'
 " Plugin 'vim-scripts/mercury.vim'
 Plugin 'adimit/prolog.vim'
 " Plugin 'ARM9/mips-syntax-vim'
@@ -40,6 +43,8 @@ filetype plugin indent on    " required
 
 colorscheme artesanal
 " colorscheme simple256
+
+let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
 " autocmd BufRead,BufNewFile *.m set filetype=mercury
