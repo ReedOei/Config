@@ -132,7 +132,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export ANDROID_HOME=$HOME/Android/Sdk/
 
-export JAVA_HOME=/usr/lib/jvm/jdk1.8.0_172
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8

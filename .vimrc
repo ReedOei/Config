@@ -210,6 +210,15 @@ function! PrintVar(visual)
     call append('.', [str])
 endfunction
 
+function! WritePrologVar()
+    let var = expand("<cword>")
+
+    let str = Indent("format('" . var . " = ~w~n', [" . var . "]),")
+
+    normal k
+    call append('.', [str])
+endfunction
+
 autocmd BufReadPost * :call CheckHaskellScript()
 
 autocmd FileType haskell nnoremap <F2> :call MakeTurtleScript()<CR>
@@ -229,6 +238,8 @@ autocmd FileType c vnoremap <F3> :call PrintVar(1)<CR>
 autocmd FileType tex nnoremap <F2> :call WriteEnv("proposition")<CR>
 autocmd FileType tex nnoremap <F3> :call WriteEnvInput()<CR>
 autocmd FileType tex nnoremap <F4> :call WriteItemize()<CR>
+
+autocmd FileType prolog nnoremap <leader>w :call WritePrologVar()<CR>
 
 nnoremap <F5> :!make<CR>
 
