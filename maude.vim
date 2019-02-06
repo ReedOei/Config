@@ -81,7 +81,7 @@ syn keyword maudeStatements and or xor not implies
 syn keyword maudeLiteral    true false
 syn match   maudeLiteral    "\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
 syn match   maudeLiteral    "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
-syn region  maudeLiteral    start=/"/ end=/"/
+syn region  maudeLiteral    start=/"/ end=/"/ skip=/\\"/
 
 MaudeHiLink maudeModule     PreProc
 MaudeHiLink maudeImports    PreProc
