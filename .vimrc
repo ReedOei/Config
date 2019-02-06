@@ -215,7 +215,6 @@ function! WritePrologVar()
 
     let str = Indent("format('" . var . " = ~w~n', [" . var . "]),")
 
-    normal k
     call append('.', [str])
 endfunction
 
