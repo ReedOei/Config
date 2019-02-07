@@ -16,19 +16,20 @@ command! -nargs=+ MaudeHiLink hi def link <args>
 syn keyword maudeModule     mod fmod omod view endm endfm endm endv is from to
 syn keyword maudeImports    protecting including extending
 syn keyword maudeSorts      sort sorts subsort subsorts
-syn keyword maudeStatements op ops var vars eq ceq
+syn keyword maudeStatements op ops var vars eq ceq rl crl
 syn match   maudeFlags      "\[.*\]"
-syn keyword maudeCommands   reduce
+syn keyword maudeCommands   reduce load search
 syn match   maudeComment    "\*\*\*.*"
 syn match   maudeComment    "---.*"
 syn match   maudeOps        "->"
+syn match   maudeOps        "|->"
 syn match   maudeOps        ":"
 "syn match   maudeOps        "^\s*subsorts[^<]*<"hs=e-1
 "syn match   maudeOps        "^\s*ceq[^=]*="
 syn match   maudeOps        "="
 syn match   maudeOps        "\.\s*$"
 
-syn keyword maudeModules    INT FLOAT NAT RAT BOOL QID TRUTH IDENTICAL STRING
+syn keyword maudeModules    INT FLOAT NAT RAT BOOL QID TRUTH IDENTICAL STRING MAP LIST SET
 syn keyword maudeModules    CONVERSION
 syn match   maudeModules    "TRUTH-VALUE"
 syn match   maudeModules    "EXT-BOOL"
@@ -79,11 +80,18 @@ syn match   maudeSorts      "Substitution\?"
 syn keyword maudeStatements and or xor not implies
 
 syn keyword maudeLiteral    true false
-syn match   maudeLiteral    "\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
-syn match   maudeLiteral    "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
+syn match   maudeNumber     "\<\(0[0-7]*\|0[xX]\x\+\|\d\+\)[lL]\=\>"
+syn match   maudeFloat      "\(\<\d\+\.\d*\|\.\d\+\)\([eE][-+]\=\d\+\)\=[fFdD]\="
 syn region  maudeLiteral    start=/"/ end=/"/ skip=/\\"/
 
+
+syn match   maudeOp         "[+/*^]"
+syn match   maudeOp         " - "
+
+MaudeHiLink maudeOp         Operator
 MaudeHiLink maudeModule     PreProc
+MaudeHiLink maudeFloat      Float
+MaudeHiLink maudeNumber     Constant
 MaudeHiLink maudeImports    PreProc
 MaudeHiLink maudeSorts      Type
 MaudeHiLink maudeStatements Keyword

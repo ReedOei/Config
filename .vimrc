@@ -36,12 +36,14 @@ Plugin 'wimstefan/vim-artesanal'
 " Plugin 'chris-bacon/haskell-refactor'
 " Plugin 'dan-t/vim-hsimport'
 Plugin 'zxqfl/tabnine-vim'
+Plugin 'jliu2179/vim-dark-meadow'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-colorscheme artesanal
+colorscheme iolia
+" colorscheme artesanal
 " colorscheme simple256
 
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
