@@ -36,7 +36,9 @@ Plugin 'wimstefan/vim-artesanal'
 " Plugin 'chris-bacon/haskell-refactor'
 " Plugin 'dan-t/vim-hsimport'
 Plugin 'zxqfl/tabnine-vim'
-Plugin 'jliu2179/vim-dark-meadow'
+Plugin 'ReedOei/iolia'
+Plugin 'ReedOei/vim-maude'
+Plugin 'ReedOei/vim-enki'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -53,6 +55,7 @@ autocmd BufRead,BufNewFile *.pl set filetype=prolog
 au BufNewFile,BufRead *.s,*.S set filetype=mips
 
 autocmd FileType idris setlocal commentstring=--\ %s
+autocmd FileType maude setlocal commentstring=---\ %s
 
 :set autoindent
 :set hlsearch
