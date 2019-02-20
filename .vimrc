@@ -44,8 +44,8 @@ Plugin 'ReedOei/vim-enki'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-colorscheme iolia
-" colorscheme artesanal
+" colorscheme iolia
+colorscheme artesanal
 " colorscheme simple256
 
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
