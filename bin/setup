@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source globals
+STACK_RESOLVER="lts-13.8"
+MAVEN_VERSION="3.6.0"
 
 if [[ ! -d "~/.vim/bundle/Vundle.vim" ]]; then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -34,7 +35,7 @@ echo 'export PATH=${M2_HOME}/bin:${PATH}' >> ~/.bashrc
 curl -sSL https://get.haskellstack.org/ | sh
 stack update
 stack upgrade
-stack setup --resolver lts-13.5
+stack setup --resolver "$STACK_RESOLVER"
 
 swipl -g "pack_install(achelois), pack_upgrade(achelois), halt."
 
