@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-STACK_RESOLVER="lts-13.5"
+STACK_RESOLVER="lts-13.8"
 MAVEN_VERSION="3.6.0"
 
