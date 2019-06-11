@@ -27,12 +27,12 @@ Plugin 'lervag/vimtex'
 Plugin 'adimit/prolog.vim'
 " Plugin 'ARM9/mips-syntax-vim'
 " Plugin 'lifepillar/vim-solarized8'
-" Plugin 'altercation/vim-colors-solarized'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'wimstefan/vim-artesanal'
 " Plugin 'brafales/vim-desert256'
 " Plugin 'vim-scripts/Simple256'
-" Plugin 'derekelkins/agda-vim'
+Plugin 'derekelkins/agda-vim'
 " Plugin 'chris-bacon/haskell-refactor'
 " Plugin 'dan-t/vim-hsimport'
 Plugin 'zxqfl/tabnine-vim'
@@ -55,6 +55,7 @@ autocmd BufRead,BufNewFile *.pl set filetype=prolog
 au BufNewFile,BufRead *.s,*.S set filetype=mips
 
 autocmd FileType idris setlocal commentstring=--\ %s
+autocmd FileType agda setlocal commentstring=--\ %s
 autocmd FileType maude setlocal commentstring=---\ %s
 
 :set autoindent
@@ -272,6 +273,9 @@ syn on
 
 au BufRead,BufNewFile *.maude set filetype=maude
 au BufRead,BufNewFile *.enki set filetype=enki
+au BufRead,BufNewFile *.obs set filetype=obsidian
 
 set wildmode=longest,list
+
+set backspace=indent,eol,start
 
