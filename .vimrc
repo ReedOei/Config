@@ -1,6 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+set t_Co=256
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -22,7 +24,7 @@ Plugin 'junegunn/vim-easy-align'
 Plugin 'tpope/vim-commentary'
 Plugin 'rust-lang/rust.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'lervag/vimtex'
+" Plugin 'lervag/vimtex'
 " Plugin 'vim-scripts/mercury.vim'
 Plugin 'adimit/prolog.vim'
 " Plugin 'ARM9/mips-syntax-vim'
@@ -39,14 +41,18 @@ Plugin 'zxqfl/tabnine-vim'
 Plugin 'ReedOei/iolia'
 Plugin 'ReedOei/vim-maude'
 Plugin 'ReedOei/vim-enki'
+Plugin 'tomlion/vim-solidity'
+Plugin 'atelierbram/vim-colors_atelier-schemes'
+Plugin 'brandonbloom/vim-factor'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " colorscheme iolia
-colorscheme artesanal
+" colorscheme artesanal
 " colorscheme simple256
+colorscheme solarized
 
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
@@ -278,4 +284,33 @@ au BufRead,BufNewFile *.obs set filetype=obsidian
 set wildmode=longest,list
 
 set backspace=indent,eol,start
+
+function! BuildMathTemplate()
+    let prob_num = input('# of problems: ')
+
+    normal! o\begin{enumerate}
+
+    for i in range(1,prob_num)
+        normal! o\item
+        let inner_prob_num = input(printf('# of inner problems (problem %d): ', i))
+
+        if inner_prob_num == ""
+            let inner_prob_num = 0
+        endif
+
+        if inner_prob_num > 0
+            normal! o\begin{enumerate}
+            for j in range(1, inner_prob_num)
+                normal! o\item
+                normal! o\begin{proof}
+                normal! o\end{proof}
+            endfor
+            normal! o\end{enumerate}
+        else
+                normal! o\begin{proof}
+                normal! o\end{proof}
+        endif
+    endfor
+    normal! o\end{enumerate}
+endfunction
 
