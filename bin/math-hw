@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+if [[ -z "$1" ]]; then
+    echo "USAGE: ./math-hw NUMBER [TEMPLATE] [TARGET_NAME]"
+    exit 1
+fi
+
+number="$1"
+template="template.tex"
+target="main.tex"
+
+if [[ ! -z "$2" ]]; then
+    template="$2"
+fi
+
+if [[ ! -z "$3" ]]; then
+    target="$3"
+fi
+
+mkdir "HW$number"
+cp "$template" "HW$number/$target"
+

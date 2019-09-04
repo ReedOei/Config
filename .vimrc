@@ -307,10 +307,14 @@ function! BuildMathTemplate()
             endfor
             normal! o\end{enumerate}
         else
-                normal! o\begin{proof}
-                normal! o\end{proof}
+            normal! o\begin{proof}
+            normal! o\end{proof}
         endif
+        normal! o
     endfor
+
+    " Delete the last empty line inserted by the above for loop
+    normal! dd
     normal! o\end{enumerate}
 endfunction
 
