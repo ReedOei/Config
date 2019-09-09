@@ -6,7 +6,7 @@ if [[ -z "$1" ]]; then
 fi
 
 number="$1"
-template="template.tex"
+template="$(git rev-parse --show-toplevel)/LaTeX/template.tex"
 target="main.tex"
 
 if [[ ! -z "$2" ]]; then

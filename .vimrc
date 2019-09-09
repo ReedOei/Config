@@ -285,7 +285,7 @@ set wildmode=longest,list
 
 set backspace=indent,eol,start
 
-function! BuildMathTemplate()
+function! MathHomeworkTemplate()
     let prob_num = input('# of problems: ')
 
     normal! o\begin{enumerate}
