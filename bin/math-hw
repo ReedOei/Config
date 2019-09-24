@@ -30,5 +30,5 @@ cp "$template" "HW$number/$target"
 ) > temp
 
 vim -s temp "HW$number/$target"
-# rm temp
+rm temp
 
