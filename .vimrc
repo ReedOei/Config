@@ -285,18 +285,15 @@ set wildmode=longest,list
 
 set backspace=indent,eol,start
 
-function! MathHomeworkTemplate()
-    let prob_num = input('# of problems: ')
+function! MathHomeworkTemplate(input_str)
+    let s = split(a:input_str)
 
     normal! o\begin{enumerate}
 
-    for i in range(1,prob_num)
+    for i in s
         normal! o\item
-        let inner_prob_num = input(printf('# of inner problems (problem %d): ', i))
 
-        if inner_prob_num == ""
-            let inner_prob_num = 0
-        endif
+        let inner_prob_num = str2nr(i)
 
         if inner_prob_num > 0
             normal! o\begin{enumerate}
@@ -316,5 +313,10 @@ function! MathHomeworkTemplate()
     " Delete the last empty line inserted by the above for loop
     normal! dd
     normal! o\end{enumerate}
+endfunction
+
+function! MathHomeworkTemplateInput()
+    let prob_num = input('problem input list of subproblem count (e.g., "0 1 2 0 1"): ')
+    call MathHomeworkTemplate(probs)
 endfunction
 
