@@ -44,6 +44,7 @@ Plugin 'ReedOei/vim-enki'
 Plugin 'tomlion/vim-solidity'
 Plugin 'atelierbram/vim-colors_atelier-schemes'
 Plugin 'brandonbloom/vim-factor'
+Plugin 'andy-morris/mizar.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -279,6 +280,7 @@ syn on
 
 au BufRead,BufNewFile *.maude set filetype=maude
 au BufRead,BufNewFile *.enki set filetype=enki
+au BufRead,BufNewFile *.envm set filetype=enkivm
 au BufRead,BufNewFile *.obs set filetype=obsidian
 
 set wildmode=longest,list
