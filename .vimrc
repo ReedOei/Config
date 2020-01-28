@@ -55,6 +55,8 @@ filetype plugin indent on    " required
 " colorscheme simple256
 colorscheme solarized
 
+set ruler
+
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
@@ -64,12 +66,10 @@ au BufNewFile,BufRead *.s,*.S set filetype=mips
 autocmd FileType idris setlocal commentstring=--\ %s
 autocmd FileType agda setlocal commentstring=--\ %s
 autocmd FileType maude setlocal commentstring=---\ %s
+autocmd FileType pecan setlocal commentstring=//\ %s
 
-:set autoindent
-:set hlsearch
-
-:set completeopt=longest,menuone
-let g:neocomplete#enable_at_startup = 1
+set autoindent
+set hlsearch
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()} " Remove thsi if syntastic is removed
@@ -84,7 +84,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
-" let g:syntastic_haskell_checkers = ['hlint', 'hdevtools']
 let g:syntastic_idris_checkers = ['idris']
 let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_java_checkers = []
@@ -282,6 +281,7 @@ au BufRead,BufNewFile *.maude set filetype=maude
 au BufRead,BufNewFile *.enki set filetype=enki
 au BufRead,BufNewFile *.envm set filetype=enkivm
 au BufRead,BufNewFile *.obs set filetype=obsidian
+au BufRead,BufNewFile *.pn set filetype=pecan
 
 set wildmode=longest,list
 

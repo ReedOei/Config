@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 
-echo $2
-python -m timeit -n 1 -r "$1" -s 'import os' "os.system('$2')"
+repeats="$1"
 
-if [[ ! -z "$3" ]]; then
-    for i in {0.."$1"}; do
-        time -f "%U" for i in {0.."$2"}
-        do
-            $("$2")
-        done
-    done
+if [[ -z "$2" ]]; then
+    repeats="10"
+    command="$1"
 fi
+
+echo "$command"
+python -m timeit -n "$repeats" -r 1 -s 'import os' "os.system('$command')"
+
+# if [[ ! -z "$3" ]]; then
+#     for i in {0.."$1"}; do
+#         time -f "%U" for i in {0.."$2"}
+#         do
+#             $("$2")
+#         done
+#     done
+# fi
 
