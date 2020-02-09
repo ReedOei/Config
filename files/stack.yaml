@@ -1,7 +1,0 @@
-flags: {}
-extra-package-dbs: []
-packages:
-    - location: {HOME}/Config/Sandbox
-extra-deps: []
-resolver: lts-13.4
-

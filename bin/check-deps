@@ -9,10 +9,6 @@ if ! command -v stack &> /dev/null; then
     stack setup
 fi
 
-if [[ -d "$HOME/.stack/global-project/" ]]; then
-    sed -E "s|\{HOME\}|$HOME|g" "$HOME/Config/files/stack.yaml" > ~/.stack/global-project/stack.yaml
-fi
-
 # Make sure we have vundle so vim will be nice.
 if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
