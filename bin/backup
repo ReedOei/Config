@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-now=`date +%Y-%m-%d:%H:%M:%S`
+now="$(date +%Y-%m-%d:%H:%M:%S)"
 
 mysqldump "$@" -p --events --routines --triggers > "$now.sql"
 dotar "$now.sql"

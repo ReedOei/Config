@@ -1,34 +1,33 @@
 #!/usr/bin/env bash
 
-if ! which stack &> /dev/null; then
+if ! command -v stack &> /dev/null; then
     wget -qO- https://get.haskellstack.org/ | sh
 
-    stack config set resolver lts-13.4
+    stack config set resolver lts-14.24
     stack upgrade
     stack update
     stack setup
 fi
 
-if [[ -d "~/.stack/global-project/" ]]; then
-    contents="`cat ~/Config/files/stack.yaml`"
-    echo "${contents//"{HOME}"/`echo ~`}" > ~/.stack/global-project/stack.yaml
+if [[ -d "$HOME/.stack/global-project/" ]]; then
+    sed -E "s|\{HOME\}|$HOME|g" "$HOME/Config/files/stack.yaml" > ~/.stack/global-project/stack.yaml
 fi
 
 # Make sure we have vundle so vim will be nice.
-if [[ -d "~/.vim/bundle/Vundle.vim" ]]; then
+if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
 # Make sure git has been configured.
-if [[ -z "`git config --get user.name`" ]]; then
+if [[ -z "$(git config --get user.name)" ]]; then
     git config --global user.name "Reed Oei"
 fi
 
-if [[ -z "`git config --get user.email`" ]]; then
+if [[ -z "$(git config --get user.email)" ]]; then
     git config --global user.email "oei.reed@gmail.com"
 fi
 
-if [[ -d "~/.ghc" ]]; then
+if [[ -d "$HOME/.ghc" ]]; then
     cp ~/Config/files/ghci.conf ~/.ghc/ghci.conf
 fi
 

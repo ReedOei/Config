@@ -6,7 +6,7 @@ def handle_format_string(format_string, data):
     def parse_keyexprs(s):
         res = []
         level = 0
-        start = 0 
+        start = 0
         for i, c in enumerate(s):
             if c == '<':
                 if level == 0:
@@ -17,7 +17,7 @@ def handle_format_string(format_string, data):
 
                 if level == 0:
                     end = i
-                    
+
                     keyexpr = s[start + 1:end]
                     res.append(keyexpr)
         return res
@@ -40,7 +40,7 @@ def handle_format_string(format_string, data):
 
     for keyexpr in all_keyexprs:
         value = handle_keyexpr(keyexpr, data)
-        
+
         format_string = format_string.replace('<{}>'.format(keyexpr), str(value))
 
     return format_string

@@ -1,20 +1,22 @@
 #!/usr/bin/env bash
 
+set -e
+
 STACK_RESOLVER="lts-13.8"
 MAVEN_VERSION="3.6.0"
 
 sudo apt update
 sudo apt install -y git
 
-if [[ ! -d "~/.vim/bundle/Vundle.vim" ]]; then
+if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 fi
 
-if [[ ! -d "~/Config" ]]; then
+if [[ ! -d "$HOME/Config" ]]; then
     git clone https://github.com/ReedOei/Config ~/Config
 else
     (
-        cd ~/Config
+        cd "$HOME/Config"
         git pull
     )
 fi
@@ -22,7 +24,7 @@ fi
 echo "source ~/Config/.vimrc" > ~/.vimrc
 echo "source ~/Config/.bashrc" > ~/.bashrc
 
-source ~/.bashrc
+source $HOME/.bashrc
 
 sudo apt install -y swi-prolog openjdk-11-jre openjdk-11-jdk openjdk-11-source git zip vim curl jq sqlite3 cloc
 
@@ -41,5 +43,5 @@ stack setup --resolver "$STACK_RESOLVER"
 
 swipl -g "pack_install(achelois), pack_upgrade(achelois), halt."
 
-source ~/.bashrc
+source "$HOME/.bashrc"
 

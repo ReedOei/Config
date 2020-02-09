@@ -1,5 +1,6 @@
 #!/bin/sh
 
-if ! [ -z "$1" ]; then
+if [ -n "$1" ]; then
     cd ~/Dropbox/Programming/"$1"
 fi
+

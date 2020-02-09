@@ -4,51 +4,47 @@ function join_by { local IFS="$1"; shift; echo "$*"; }
 
 FILENAME=$1
 
-CLASSNAME=$(grep -oE "class .* {" $FILENAME | sed -E "s/class (.*) \{/\1/g")
-CLASS_LINES=(`grep -En "class .* {" $FILENAME | sed -E "s/([0-9]+):.*/\1/g"`)
+CLASSNAME="$(grep -oE "class .* {" "$FILENAME" | sed -E "s/class (.*) \{/\1/g")"
+CLASS_LINES=($(grep -En "class .* {" "$FILENAME" | sed -E "s/([0-9]+):.*/\1/g"))
 CLASS_LINE=${CLASS_LINES[0]}
 
 IFS='
 '
 
-TEMPLATES=(`grep -oE "template <typename .*?>" "$FILENAME" | sed -E "s/template <typename (.*?)>/\1/g"`)
-TEMPLATE_LINES=(`grep -nE "template <typename .*?>" "$FILENAME" | sed -E "s/([0-9]+):.*/\1/g"`)
+TEMPLATES=($(grep -oE "template <typename .*?>" "$FILENAME" | sed -E "s/template <typename (.*?)>/\1/g"))
+TEMPLATE_LINES=($(grep -nE "template <typename .*?>" "$FILENAME" | sed -E "s/([0-9]+):.*/\1/g"))
 TEMPLATE_COUNT=${#TEMPLATES[@]}
 
 TEMPLATE=""
-for (( i=0; i<${TEMPLATE_COUNT}; i++ ));
+for (( i=0; i<TEMPLATE_COUNT; i++ ));
 do
-    if [[ ${TEMPLATE_LINES[$i]} -eq $(( CLASS_LINE - 1 )) ]]; then
-        TEMPLATE=${TEMPLATES[$i]}
+    if [[ "${TEMPLATE_LINES[$i]}" -eq "$(( CLASS_LINE - 1 ))" ]]; then
+        TEMPLATE="${TEMPLATES[$i]}"
     fi
 done
 
 if [[ ! -z "$TEMPLATE" ]]; then
-    FUNCTIONS=(`grep -oE "(.*?) (.*?)\(.*\)(.*?);" "$FILENAME" | sed -E "s/(.*?) (.*?)\((.*?)\)(.*?);/\1 $CLASSNAME<$TEMPLATE>::\2(\3)\4/g"`)
+    FUNCTIONS=($(grep -oE "(.*?) (.*?)\(.*\)(.*?);" "$FILENAME" | sed -E "s/(.*?) (.*?)\((.*?)\)(.*?);/\1 $CLASSNAME<$TEMPLATE>::\2(\3)\4/g"))
 else
-    FUNCTIONS=(`grep -oE "(.*?) (.*?)\(.*\)(.*?);" "$FILENAME" | sed -E "s/(.*?) (.*?)\((.*?)\)(.*?);/\1 $CLASSNAME::\2(\3)\4/g"`)
+    FUNCTIONS=($(grep -oE "(.*?) (.*?)\(.*\)(.*?);" "$FILENAME" | sed -E "s/(.*?) (.*?)\((.*?)\)(.*?);/\1 $CLASSNAME::\2(\3)\4/g"))
 fi
 
-FUNCTION_LINES=(`grep -nE "(.*?) (.*?)\(.*\)(.*?);" "$FILENAME" | sed -E "s/([0-9]+):.*/\1/g"`)
+FUNCTION_LINES=($(grep -nE "(.*?) (.*?)\(.*\)(.*?);" "$FILENAME" | sed -E "s/([0-9]+):.*/\1/g"))
 
 FUNCTIONS_IN_FILE=(`grep -oE "(.*?)(.*?)\(.*\) (.*?){" "$CLASSNAME.cpp" | sed -E "s/(.*?)(.*?)(\(.*\)) (.*?)\{/\1\2\3 \4/g"`)
 
-grep -q "$include \"$FILENAME\"" "$CLASSNAME.cpp"
-rc=$?
-if [[ rc -ne "0" ]]; then
+if ! grep -q "include \"$FILENAME\"" "$CLASSNAME.cpp"; then
     echo "#include \"$FILENAME\"" | tee -a "$CLASSNAME.cpp"
     echo "" | tee -a "$CLASSNAME.cpp"
 fi
 
 FUNCTION_COUNT=${#FUNCTIONS[@]}
-for (( i=0; i<${FUNCTION_COUNT}; i++ ));
-do
+for (( i=0; i<FUNCTION_COUNT; i++ )); do
     func_template=""
 
     fl=${FUNCTION_LINES[$i]}
 
-    for (( k=0; k<${TEMPLATE_COUNT}; k++ ));
-    do
+    for (( k=0; k<TEMPLATE_COUNT; k++ )); do
         if [[ ${TEMPLATE_LINES[$k]} -eq $(( fl - 1 )) ]]; then
             func_template=${TEMPLATES[$k]}
         fi
@@ -57,11 +53,10 @@ do
     func_def=$(echo "${FUNCTIONS[$i]}" | xargs)
     found=0
 
-    for j in ${FUNCTIONS_IN_FILE[@]}
-    do
+    for j in "${FUNCTIONS_IN_FILE[@]}"; do
         cur_func_def=$(echo "$j" | xargs)
 
-        if [[ $func_def == $cur_func_def ]]; then
+        if [[ "$func_def" == "$cur_func_def" ]]; then
             echo "Already defined: $func_def"
 
             found=1
@@ -72,11 +67,11 @@ do
     if [[ $found -eq "0" ]]; then
         # Write the template line, if necessary
 
-        if [[ ! -z "$TEMPLATE" ]]; then
+        if [[ -n "$TEMPLATE" ]]; then
             echo "template <typename $TEMPLATE>" | tee -a "$CLASSNAME.cpp"
         fi
 
-        if [[ ! -z "$func_template" ]]; then
+        if [[ -n "$func_template" ]]; then
             echo "template <typename $func_template>" | tee -a "$CLASSNAME.cpp"
         fi
 
