@@ -87,11 +87,12 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_idris_checkers = ['idris']
 let g:syntastic_rust_checkers = ['cargo']
 let g:syntastic_java_checkers = []
+let g:syntastic_haskell_checkers = ['hlint'] " Don't use hdevtools, because it never seems to work...
 
 let g:syntastic_cpp_compiler = 'clang++'
 let g:syntastic_cpp_compiler_options = ' -std=c++11 -stdlib=libc++'
 
-let g:syntastic_disabled_filetypes = ['java', 'haskell']
+let g:syntastic_disabled_filetypes = ['java', 'haskell', 'hs']
 
 syntax on
 set number
