@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 if ! command -v stack &> /dev/null; then
-    wget -qO- https://get.haskellstack.org/ | sh
-
-    stack config set resolver lts-14.24
-    stack upgrade
-    stack update
-    stack setup
+    if wget -qO- https://get.haskellstack.org/ | sh; then
+        stack config set resolver lts-14.24
+        stack upgrade
+        stack update
+        stack setup
+    fi
 fi
 
 # Make sure we have vundle so vim will be nice.
