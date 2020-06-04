@@ -2,6 +2,8 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# set -x
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -132,8 +134,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 
 export ANDROID_HOME=$HOME/Android/Sdk/
 
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
@@ -151,5 +151,5 @@ export VISUAL=vim
 export EDITOR="$VISUAL"
 export LD_LIBRARY_PATH=/usr/lib/jvm/java-8-openjdk-amd64/lib/amd64:/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server
 
-eval `opam config env`
+# eval `opam config env`
 

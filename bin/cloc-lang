@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ -z "$1" ]]; then
+    echo "Usage: $0 LANGUAGE [PATH]"
+    echo "LANGUAGE - The name of the language to count lines for"
+    echo "PATH - Optional. The location to count LOC in. Defaults to ./"
+    exit 1
+fi
+
+lang="$1"
+code_path="$2"
+
+if [[ -z "$code_path" ]]; then
+    code_path="./"
+fi
+
+cloc --hide-rate --quiet --csv "$code_path" | grep -iE "$lang" | csvtool col 5 -
+

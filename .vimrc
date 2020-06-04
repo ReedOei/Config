@@ -67,6 +67,7 @@ autocmd FileType idris setlocal commentstring=--\ %s
 autocmd FileType agda setlocal commentstring=--\ %s
 autocmd FileType maude setlocal commentstring=---\ %s
 autocmd FileType pecan setlocal commentstring=//\ %s
+autocmd FileType enki setlocal commentstring=--\ %s
 
 set autoindent
 set hlsearch
