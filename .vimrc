@@ -60,6 +60,7 @@ set ruler
 let g:surround_{char2nr('c')} = "\\\1command\1{\r}"
 
 autocmd BufRead,BufNewFile *.pl set filetype=prolog
+autocmd BufRead,BufNewFile *.flow set filetype=flow
 " autocmd BufRead,BufNewFile *.m set filetype=mercury
 au BufNewFile,BufRead *.s,*.S set filetype=mips
 
@@ -292,6 +293,7 @@ set backspace=indent,eol,start
 function! MathHomeworkTemplate(input_str)
     let s = split(a:input_str)
 
+    normal! o
     normal! o\begin{enumerate}
 
     for i in s
@@ -311,12 +313,14 @@ function! MathHomeworkTemplate(input_str)
             normal! o\begin{proof}
             normal! o\end{proof}
         endif
+
         normal! o
     endfor
 
     " Delete the last empty line inserted by the above for loop
     normal! dd
     normal! o\end{enumerate}
+    normal! o
 endfunction
 
 function! MathHomeworkTemplateInput()
