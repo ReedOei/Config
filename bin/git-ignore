@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+git_root="$(git rev-parse --show-toplevel)"
+
+if [[ ! -e "$git_root/.gitignore" ]]; then
+    echo >> "$git_root/.gitignore"
+fi
+
+echo "$1" >> "$git_root/.gitignore"
+
